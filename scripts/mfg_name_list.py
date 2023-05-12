@@ -1,12 +1,9 @@
-import os
-from collections import defaultdict
 import csv
-from operator import itemgetter
-import pyodbc
+import os
 from datetime import date
-from pprint import pprint
-from dotenv import load_dotenv
 
+import pyodbc
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -19,8 +16,8 @@ cursor.execute(os.getenv("INVENTORY_QUERIES"))
 
 array = []
 
-#mfg_names = set()
-#for row in cursor:
+# mfg_names = set()
+# for row in cursor:
 #    mfg_names.add(row[0].split(" ")[0])
 
 mfg_names = set()
@@ -34,6 +31,3 @@ for row in cursor:
 with open(FILENAME, "w+", newline="") as output_file:
     writer = csv.writer(output_file)
     writer.writerows(sorted([name, name_to_row[name]] for name in mfg_names))
-
-
-

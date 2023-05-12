@@ -1,14 +1,14 @@
-import os
-
-from manufacturer import AUTHORIZED_MFGS, NON_AUTHORIZED_MFGS, get_inventory_row
 import csv
-from operator import itemgetter
-import pyodbc
-from datetime import date
-import re
 import logging
-from dotenv import load_dotenv
+import os
+import re
+from datetime import date
+from operator import itemgetter
 
+import pyodbc
+from dotenv import load_dotenv
+from manufacturer import (AUTHORIZED_MFGS, NON_AUTHORIZED_MFGS,
+                          get_inventory_row)
 
 load_dotenv()
 
@@ -40,7 +40,7 @@ for row in cursor:
                 break
         else:
             pass
-            #logging.critical(f"Match not found for: {row[0]}")
+            # logging.critical(f"Match not found for: {row[0]}")
 
 authorized_mfg_list.sort(key=itemgetter(1))
 non_authorized_mfg_list.sort(key=itemgetter(1))
@@ -55,4 +55,3 @@ with open(NON_AUTH_FILENAME, "w+", newline="") as output_file:
     writer = csv.writer(output_file)
     writer.writerows(HEADER)
     writer.writerows(non_authorized_mfg_list)
-
